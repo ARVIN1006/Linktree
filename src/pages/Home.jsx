@@ -98,30 +98,30 @@ const Home = () => {
                   backgroundColor: theme.customButtonColor || "",
                   color: theme.customButtonTextColor || "",
                 }}
-                className={`flex animate-slide-up items-center p-4 rounded-xl w-full group transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-md border border-white/20 shadow-sm hover:shadow-md ${!theme.customButtonColor ? theme.buttonStyle : ""}`}
+                className={`relative flex animate-slide-up items-center p-4 rounded-xl w-full group transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-md border border-white/20 shadow-sm hover:shadow-md ${!theme.customButtonColor ? theme.buttonStyle : ""}`}
               >
                 <div
-                  className={`absolute left-4 transition-colors duration-300`}
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300`}
                   style={{
                     color:
                       theme.customButtonTextColor ||
                       (isDarkTheme ? "white" : "gray"),
                   }}
                 >
-                  <Icon name={link.icon} size={22} />
+                  <Icon name={link.icon} size={26} />
                 </div>
                 <span className="flex-1 font-semibold text-center px-8 tracking-wide">
                   {link.title}
                 </span>
                 <div
-                  className={`absolute right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 duration-300`}
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0`}
                   style={{
                     color:
                       theme.customButtonTextColor ||
                       (isDarkTheme ? "white" : "gray"),
                   }}
                 >
-                  <LucideIcons.ArrowRight size={18} />
+                  <LucideIcons.ArrowRight size={20} />
                 </div>
               </a>
             ))}
@@ -147,7 +147,7 @@ const Home = () => {
               className={`animate-bounce-in p-2 rounded-full transition-all duration-300 hover:scale-125
               ${isDarkTheme ? "text-white/90 hover:text-white hover:bg-white/10" : "text-gray-800 hover:text-black hover:bg-black/5"}`}
             >
-              <Icon name={social.icon} size={22} />
+              <Icon name={social.icon} size={28} />
             </a>
           ))}
         </div>
