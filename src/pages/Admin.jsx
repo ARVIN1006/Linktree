@@ -39,7 +39,7 @@ const Admin = () => {
       cardStyle: "bg-white/30 border-white/40 shadow-xl",
       textColor: "text-gray-800",
       subTextColor: "text-gray-600",
-    },1
+    },
     {
       id: "midnight",
       name: "Midnight Dark",
@@ -244,6 +244,10 @@ const Admin = () => {
 
   const handleAddSocial = (e) => {
     e.preventDefault();
+    if (socials.length >= 5) {
+      alert("Maksimal 5 sosial media!");
+      return;
+    }
     if (newSocial.platform && newSocial.url) {
       updateSocials([...socials, { id: Date.now(), ...newSocial }]);
       setNewSocial({ platform: "", url: "", icon: "Instagram" });
@@ -457,7 +461,12 @@ const Admin = () => {
                       <option value="Mail">Mail</option>
                       <option value="Phone">Phone</option>
                       <option value="MessageCircle">WhatsApp/Message</option>
-                      <option value="ShoppingBag">Shop</option>
+                      <option value="ShoppingBag">Shop (Generic)</option>
+                      <option value="Shopee">Shopee</option>
+                      <option value="Tokopedia">Tokopedia</option>
+                      <option value="TikTok">TikTok</option>
+                      <option value="Lazada">Lazada</option>
+                      <option value="Blibli">Blibli</option>
                     </select>
                     <button
                       type="submit"
@@ -477,8 +486,35 @@ const Admin = () => {
                     className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:border-primary transition-colors"
                   >
                     <div className="flex items-center gap-4 flex-1">
-                      <div className="p-3 bg-gray-100 rounded-lg text-gray-600">
-                        <Icon name={link.icon} size={20} />
+                      <div className="flex flex-col gap-2 p-1">
+                        <select
+                          value={link.icon}
+                          onChange={(e) =>
+                            updateLink(link.id, { icon: e.target.value })
+                          }
+                          className="p-1 text-xs border rounded bg-gray-50 focus:ring-1 focus:ring-primary outline-none"
+                        >
+                          <option value="Link">Link</option>
+                          <option value="Globe">Web</option>
+                          <option value="Github">Github</option>
+                          <option value="Instagram">Instagram</option>
+                          <option value="Twitter">Twitter</option>
+                          <option value="Linkedin">LinkedIn</option>
+                          <option value="Youtube">Youtube</option>
+                          <option value="Facebook">Facebook</option>
+                          <option value="Mail">Mail</option>
+                          <option value="Phone">Phone</option>
+                          <option value="MessageCircle">WA</option>
+                          <option value="ShoppingBag">Shop</option>
+                          <option value="Shopee">Shopee</option>
+                          <option value="Tokopedia">Tokopedia</option>
+                          <option value="TikTok">TikTok</option>
+                          <option value="Lazada">Lazada</option>
+                          <option value="Blibli">Blibli</option>
+                        </select>
+                        <div className="flex justify-center text-gray-600">
+                          <Icon name={link.icon} size={20} />
+                        </div>
                       </div>
                       <div className="flex-1">
                         <input
@@ -559,59 +595,73 @@ const Admin = () => {
 
               {/* Add New Social */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm mb-6">
-                <h3 className="font-semibold text-lg mb-4 text-gray-700">
-                  Tambah Sosial Media Baru
+                <h3 className="font-semibold text-lg mb-4 text-gray-700 flex justify-between items-center">
+                  <span>Tambah Sosial Media Baru</span>
+                  <span className="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                    {socials.length} / 5
+                  </span>
                 </h3>
-                <form
-                  onSubmit={handleAddSocial}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                >
-                  <input
-                    type="text"
-                    placeholder="Nama Platform (mis: TikTok)"
-                    value={newSocial.platform}
-                    onChange={(e) =>
-                      setNewSocial({ ...newSocial, platform: e.target.value })
-                    }
-                    className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                    required
-                  />
-                  <input
-                    type="url"
-                    placeholder="URL (https://...)"
-                    value={newSocial.url}
-                    onChange={(e) =>
-                      setNewSocial({ ...newSocial, url: e.target.value })
-                    }
-                    className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                    required
-                  />
-                  <div className="sm:col-span-2 flex flex-col xs:flex-row justify-between items-center gap-4">
-                    <select
-                      value={newSocial.icon}
-                      onChange={(e) =>
-                        setNewSocial({ ...newSocial, icon: e.target.value })
-                      }
-                      className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none bg-white flex-1"
-                    >
-                      <option value="Instagram">Instagram</option>
-                      <option value="Twitter">Twitter</option>
-                      <option value="Linkedin">LinkedIn</option>
-                      <option value="Youtube">Youtube</option>
-                      <option value="Facebook">Facebook</option>
-                      <option value="Github">Github</option>
-                      <option value="Mail">Mail</option>
-                      <option value="MessageCircle">WhatsApp</option>
-                      <option value="Globe">Website</option>
-                    </select>
-                    <button
-                      type="submit"
-                      className="bg-primary hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
-                    >
-                      <LucideIcons.Plus size={18} /> Tambah
-                    </button>
+                {socials.length >= 5 ? (
+                  <div className="bg-yellow-50 text-yellow-800 p-4 rounded-lg text-sm border border-yellow-200">
+                    <p className="flex items-center gap-2">
+                      <LucideIcons.AlertCircle size={16} />
+                      Anda telah mencapai batas maksimal 5 sosial media. Hapus
+                      salah satu untuk menambahkan yang baru.
+                    </p>
                   </div>
-                </form>
+                ) : (
+                  <form
+                    onSubmit={handleAddSocial}
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Nama Platform (mis: TikTok)"
+                      value={newSocial.platform}
+                      onChange={(e) =>
+                        setNewSocial({ ...newSocial, platform: e.target.value })
+                      }
+                      className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                      required
+                    />
+                    <input
+                      type="url"
+                      placeholder="URL (https://...)"
+                      value={newSocial.url}
+                      onChange={(e) =>
+                        setNewSocial({ ...newSocial, url: e.target.value })
+                      }
+                      className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                      required
+                    />
+                    <div className="sm:col-span-2 flex flex-col xs:flex-row justify-between items-center gap-4">
+                      <select
+                        value={newSocial.icon}
+                        onChange={(e) =>
+                          setNewSocial({ ...newSocial, icon: e.target.value })
+                        }
+                        className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary outline-none bg-white flex-1"
+                      >
+                        <option value="Instagram">Instagram</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Linkedin">LinkedIn</option>
+                        <option value="Youtube">Youtube</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Github">Github</option>
+                        <option value="Mail">Mail</option>
+                        <option value="MessageCircle">WhatsApp</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Globe">Website</option>
+                      </select>
+                      <button
+                        type="submit"
+                        className="bg-primary hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                      >
+                        <LucideIcons.Plus size={18} /> Tambah
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
 
               {/* Socials List */}
@@ -666,18 +716,147 @@ const Admin = () => {
               <h2 className="text-2xl font-bold text-gray-800 mb-6">
                 Kustomisasi Tema
               </h2>
+              <div className="bg-white p-6 rounded-xl border border-primary/20 shadow-md mb-8">
+                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <LucideIcons.Paintbrush size={20} className="text-primary" />
+                  Desain Tema Kustom Baru
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
+                      Latar Belakang
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="color"
+                        value={theme.customBgStart || "#4f46e5"}
+                        onChange={(e) => {
+                          const start = e.target.value;
+                          const end = theme.customBgEnd || "#9333ea";
+                          updateTheme({
+                            id: "custom",
+                            customBgStart: start,
+                            customBackground: `linear-gradient(to bottom right, ${start}, ${end})`,
+                          });
+                        }}
+                        className="h-10 w-full rounded cursor-pointer"
+                        title="Warna Awal"
+                      />
+                      <input
+                        type="color"
+                        value={theme.customBgEnd || "#9333ea"}
+                        onChange={(e) => {
+                          const end = e.target.value;
+                          const start = theme.customBgStart || "#4f46e5";
+                          updateTheme({
+                            id: "custom",
+                            customBgEnd: end,
+                            customBackground: `linear-gradient(to bottom right, ${start}, ${end})`,
+                          });
+                        }}
+                        className="h-10 w-full rounded cursor-pointer"
+                        title="Warna Akhir"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
+                      Tombol & Teks Utama
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="color"
+                        value={theme.customButtonColor || "#ffffff"}
+                        onChange={(e) =>
+                          updateTheme({
+                            id: "custom",
+                            customButtonColor: e.target.value,
+                          })
+                        }
+                        className="h-10 w-full rounded cursor-pointer"
+                        title="Warna Tombol"
+                      />
+                      <input
+                        type="color"
+                        value={theme.customButtonTextColor || "#000000"}
+                        onChange={(e) =>
+                          updateTheme({
+                            id: "custom",
+                            customButtonTextColor: e.target.value,
+                          })
+                        }
+                        className="h-10 w-full rounded cursor-pointer"
+                        title="Warna Teks Tombol"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
+                      Warna Nama & Bio
+                    </label>
+                    <input
+                      type="color"
+                      value={theme.customTextColor || "#ffffff"}
+                      onChange={(e) =>
+                        updateTheme({
+                          id: "custom",
+                          customTextColor: e.target.value,
+                        })
+                      }
+                      className="h-10 w-full rounded cursor-pointer"
+                      title="Warna Teks Profil"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                  <span className="text-sm text-gray-500 italic">
+                    Tema kustom otomatis tersimpan saat Anda memilih warna.
+                  </span>
+                  <button
+                    onClick={() => {
+                      updateTheme({
+                        id: "default",
+                        customBackground: null,
+                        customButtonColor: null,
+                        customButtonTextColor: null,
+                        customTextColor: null,
+                      });
+                    }}
+                    className="text-xs font-bold text-red-500 hover:text-red-700"
+                  >
+                    Reset ke Tema Klasik
+                  </button>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <LucideIcons.Layout size={20} className="text-primary" />
+                Atau Pilih Preset Tema
+              </h3>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {themes.map((t) => (
                   <button
                     key={t.id}
-                    onClick={() => updateTheme(t)}
-                    className={`p-4 rounded-xl border-2 transition-all text-left relative overflow-hidden group ${theme.id === t.id ? "border-primary bg-primary/5" : "border-gray-200 bg-white hover:border-primary/50"}`}
+                    onClick={() => {
+                      updateTheme({
+                        ...t,
+                        customBackground: null,
+                        customButtonColor: null,
+                        customButtonTextColor: null,
+                        customTextColor: null,
+                      });
+                    }}
+                    className={`p-4 rounded-xl border-2 transition-all text-left relative overflow-hidden group ${theme.id === t.id && !theme.customBackground ? "border-primary bg-primary/5" : "border-gray-200 bg-white hover:border-primary/50"}`}
                   >
                     <div
                       className={`h-24 w-full rounded-lg bg-gradient-to-br ${t.background} mb-3 border border-gray-100`}
                     ></div>
                     <div className="font-semibold text-gray-800">{t.name}</div>
-                    {theme.id === t.id && (
+                    {theme.id === t.id && !theme.customBackground && (
                       <div className="absolute top-2 right-2 bg-primary text-white p-1 rounded-full">
                         <LucideIcons.Check size={12} />
                       </div>

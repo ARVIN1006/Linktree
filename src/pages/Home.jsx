@@ -41,7 +41,7 @@ const Home = () => {
 
         {/* Profile Section */}
         <div className="flex flex-col items-center mb-10 animate-fade-in relative z-10 w-full">
-          <div className="w-28 h-28 rounded-full border-[3px] border-white/80 shadow-xl overflow-hidden mb-5 transition-transform hover:scale-105 hover:rotate-3 duration-500">
+          <div className="w-28 h-28 rounded-full border-[3px] border-white/80 shadow-xl overflow-hidden mb-5 transition-transform hover:scale-105 hover:rotate-3 duration-500 animate-float">
             <img
               src={profile.image}
               alt={profile.name}
@@ -49,31 +49,44 @@ const Home = () => {
             />
           </div>
           <h1
-            className={`text-2xl md:text-3xl font-bold ${textColor} mb-2 tracking-tight`}
+            className={`text-2xl md:text-3xl font-bold mb-2 tracking-tight`}
+            style={{ color: theme.customTextColor || "white" }}
           >
             {profile.name}
           </h1>
           <p
-            className={`text-sm md:text-base ${subTextColor} text-center max-w-xs font-medium bg-white/10 px-4 py-1 rounded-full backdrop-blur-sm border border-white/10`}
+            className={`text-sm md:text-base text-center max-w-xs font-medium bg-white/10 px-4 py-1 rounded-full backdrop-blur-sm border border-white/10`}
+            style={{ color: theme.customTextColor || "white" }}
           >
             {profile.bio}
           </p>
         </div>
 
         {/* Links Section */}
-        <div className="space-y-4 w-full animate-slide-up pb-32">
+        <div className="space-y-4 w-full pb-32">
           {links
             .filter((l) => l.active)
-            .map((link) => (
+            .map((link, index) => (
               <a
                 key={link.id}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center p-4 rounded-xl w-full group transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-md border border-white/20 shadow-sm hover:shadow-md ${theme.buttonStyle}`}
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                  animationFillMode: "backwards",
+                  backgroundColor: theme.customButtonColor || "",
+                  color: theme.customButtonTextColor || "",
+                }}
+                className={`flex animate-slide-up items-center p-4 rounded-xl w-full group transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-md border border-white/20 shadow-sm hover:shadow-md ${!theme.customButtonColor ? theme.buttonStyle : ""}`}
               >
                 <div
-                  className={`absolute left-4 transition-colors duration-300 ${isDarkTheme ? "text-white/80" : "text-gray-700"}`}
+                  className={`absolute left-4 transition-colors duration-300`}
+                  style={{
+                    color:
+                      theme.customButtonTextColor ||
+                      (isDarkTheme ? "white" : "gray"),
+                  }}
                 >
                   <Icon name={link.icon} size={22} />
                 </div>
@@ -81,7 +94,12 @@ const Home = () => {
                   {link.title}
                 </span>
                 <div
-                  className={`absolute right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 duration-300 ${isDarkTheme ? "text-white/80" : "text-gray-400"}`}
+                  className={`absolute right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 duration-300`}
+                  style={{
+                    color:
+                      theme.customButtonTextColor ||
+                      (isDarkTheme ? "white" : "gray"),
+                  }}
                 >
                   <LucideIcons.ArrowRight size={18} />
                 </div>
@@ -90,19 +108,29 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Socials Footer */}
-      <div className="py-6 px-6 bg-white/10 backdrop-blur-md border-t border-white/10 flex justify-center gap-6 sticky bottom-0 z-30 w-full">
-        {socials.map((social, index) => (
-          <a
-            key={index}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${isDarkTheme ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-black"} hover:scale-110 transition-transform`}
-          >
-            <Icon name={social.icon} size={24} />
-          </a>
-        ))}
+      {/* Socials Footer - Always Floating "Smart" Capsule */}
+      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] w-max max-w-[90%] pointer-events-none">
+        <div
+          className={`flex items-center gap-2 px-5 py-3 rounded-full backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] border pointer-events-auto transition-all duration-500 hover:scale-105 active:scale-95
+          ${isDarkTheme ? "bg-black/60 border-white/20" : "bg-white/70 border-gray-200/80"}`}
+        >
+          {socials.map((social, index) => (
+            <a
+              key={index}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                animationDelay: `${index * 100 + 300}ms`,
+                animationFillMode: "backwards",
+              }}
+              className={`animate-bounce-in p-2 rounded-full transition-all duration-300 hover:scale-125
+              ${isDarkTheme ? "text-white/90 hover:text-white hover:bg-white/10" : "text-gray-800 hover:text-black hover:bg-black/5"}`}
+            >
+              <Icon name={social.icon} size={22} />
+            </a>
+          ))}
+        </div>
       </div>
     </Layout>
   );
