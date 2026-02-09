@@ -465,6 +465,7 @@ const Admin = () => {
                       <option value="Shopee">Shopee</option>
                       <option value="Tokopedia">Tokopedia</option>
                       <option value="TikTok">TikTok</option>
+                      <option value="TikTokShop">TikTok Shop</option>
                       <option value="Lazada">Lazada</option>
                       <option value="Blibli">Blibli</option>
                     </select>
@@ -509,6 +510,7 @@ const Admin = () => {
                           <option value="Shopee">Shopee</option>
                           <option value="Tokopedia">Tokopedia</option>
                           <option value="TikTok">TikTok</option>
+                          <option value="TikTokShop">TT Shop</option>
                           <option value="Lazada">Lazada</option>
                           <option value="Blibli">Blibli</option>
                         </select>
@@ -651,6 +653,7 @@ const Admin = () => {
                         <option value="Mail">Mail</option>
                         <option value="MessageCircle">WhatsApp</option>
                         <option value="TikTok">TikTok</option>
+                        <option value="TikTokShop">TikTok Shop</option>
                         <option value="Globe">Website</option>
                       </select>
                       <button

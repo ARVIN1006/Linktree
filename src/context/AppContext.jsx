@@ -58,7 +58,14 @@ const initialData = {
 };
 
 export const AppProvider = ({ children }) => {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(() => {
+    try {
+      const saved = localStorage.getItem("linktree_data");
+      return saved ? JSON.parse(saved) : initialData;
+    } catch (e) {
+      return initialData;
+    }
+  });
   const [isCloudLoading, setIsCloudLoading] = useState(true);
 
   // Load data from Cloud on mount, fallback to localStorage
@@ -326,6 +333,7 @@ export const AppProvider = ({ children }) => {
         moveLinkUp,
         moveLinkDown,
         resetData,
+        isCloudLoading,
         isAuthenticated,
         login,
         logout,

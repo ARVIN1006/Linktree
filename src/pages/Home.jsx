@@ -6,7 +6,27 @@ import Layout from "../components/Layout";
 import * as LucideIcons from "lucide-react";
 
 const Home = () => {
-  const { data } = useAppHelper();
+  const { data, isCloudLoading } = useAppHelper();
+
+  // If loading and we haven't changed from dummy data, show a centered loader
+  // This prevents the "glitch" where dummy data flashes before real data
+  if (isCloudLoading && data.profile.name === "Nama Anda") {
+    return (
+      <Layout>
+        <div className="flex-1 flex flex-col items-center justify-center space-y-4 animate-pulse">
+          <div className="w-28 h-28 rounded-full bg-white/20" />
+          <div className="h-8 w-48 bg-white/20 rounded-lg" />
+          <div className="h-4 w-64 bg-white/20 rounded-lg" />
+          <div className="space-y-3 w-full max-w-xs pt-8">
+            <div className="h-14 bg-white/20 rounded-xl" />
+            <div className="h-14 bg-white/20 rounded-xl" />
+            <div className="h-14 bg-white/20 rounded-xl" />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   const {
     profile,
     links,

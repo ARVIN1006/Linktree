@@ -6,45 +6,54 @@ const CUSTOM_ICONS = {
     <img
       src="/assets/shopee.png"
       alt="Shopee"
-      width={Number(props.size || 24) * 1.5}
-      height={Number(props.size || 24) * 1.5}
-      className={`object-contain rounded-lg ${props.className || ""}`}
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
     />
   ),
   Tokopedia: (props) => (
     <img
       src="/assets/tokopedia.png"
       alt="Tokopedia"
-      width={Number(props.size || 24) * 1.5}
-      height={Number(props.size || 24) * 1.5}
-      className={`object-contain rounded-lg ${props.className || ""}`}
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
     />
   ),
   TikTok: (props) => (
     <img
       src="/assets/tiktok.png"
       alt="TikTok"
-      width={Number(props.size || 24) * 1.5}
-      height={Number(props.size || 24) * 1.5}
-      className={`object-contain rounded-lg ${props.className || ""}`}
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
+    />
+  ),
+  TikTokShop: (props) => (
+    <img
+      src="/assets/tiktok-shop.png"
+      alt="TikTok Shop"
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
     />
   ),
   Lazada: (props) => (
     <img
       src="/assets/lazada.png"
       alt="Lazada"
-      width={Number(props.size || 24) * 1.5}
-      height={Number(props.size || 24) * 1.5}
-      className={`object-contain rounded-lg ${props.className || ""}`}
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
     />
   ),
   Blibli: (props) => (
     <img
       src="/assets/blibli.png"
       alt="Blibli"
-      width={Number(props.size || 24) * 1.5}
-      height={Number(props.size || 24) * 1.5}
-      className={`object-contain rounded-lg ${props.className || ""}`}
+      width={props.size || 24}
+      height={props.size || 24}
+      className={`object-contain ${props.className || ""}`}
     />
   ),
   WhatsApp: (props) => (
